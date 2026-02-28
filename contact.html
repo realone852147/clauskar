@@ -31,50 +31,33 @@
 
     <header class="page-header">
         <h1>Lançons votre <span class="text-gradient">projet.</span></h1>
-        <p>Remplissez ce formulaire pour demander l'activation de votre service.</p>
+        <p>Cliquez sur le bouton ci-dessous pour nous envoyer votre demande par email (pré-remplie).</p>
     </header>
 
     <section style="padding: 0 20px; padding-bottom: 60px;">
         <div class="contact-form-container">
-            <form>
-                <div class="form-group">
-                    <label for="name">Nom Complet / Pseudo</label>
-                    <input type="text" id="name" class="form-control" placeholder="John Doe" required>
+
+            <div style="display:flex; flex-direction:column; gap: 1rem;">
+                <div style="color: var(--text-muted); line-height: 1.6;">
+                    <strong style="color: white;">À inclure dans votre message :</strong><br>
+                    • Nom / Pseudo<br>
+                    • Sous-domaine souhaité (ex: mon-service.cloudnow.fr)<br>
+                    • Type de service (web, docker, plex, jeu...)<br>
+                    • Détails techniques (port, IP locale, machine, etc.)
                 </div>
 
-                <div class="form-group">
-                    <label for="email">Adresse Email</label>
-                    <input type="email" id="email" class="form-control" placeholder="john@example.com" required>
-                </div>
+                <a class="btn btn-primary"
+                   style="width: 100%; justify-content: center; text-align:center;"
+                   href="mailto:contact@cloudnow.fr?subject=Demande%20d%27activation%20CloudNow&body=Bonjour%20CloudNow%2C%0D%0A%0D%0AJe%20souhaite%20activer%20un%20service.%0D%0A%0D%0A-%20Nom%20%2F%20Pseudo%20%3A%20%0D%0A-%20Email%20%3A%20%0D%0A-%20Sous-domaine%20souhait%C3%A9%20%3A%20%28ex%20%3A%20mon-service.cloudnow.fr%29%0D%0A-%20Type%20de%20service%20%3A%20%28web%2C%20app%2C%20m%C3%A9dia%2C%20jeu%2C%20autre%29%0D%0A-%20D%C3%A9tails%20techniques%20%3A%20%28port%2C%20IP%20locale%2C%20mat%C3%A9riel%2C%20docker%2C%20etc.%29%0D%0A%0D%0AMerci%20%21%0D%0A">
+                    Envoyer la demande par email
+                </a>
 
-                <div class="form-group">
-                    <label for="domain">Sous-domaine souhaité</label>
-                    <div style="display: flex; align-items: center; gap: 0.5rem;">
-                        <input type="text" id="domain" class="form-control" placeholder="mon-service" required>
-                        <span style="color: var(--text-muted); font-weight: 500;">.cloudnow.fr</span>
-                    </div>
+                <div style="font-size: 0.85rem; opacity: 0.7;">
+                    *Le bouton ouvre votre application mail (Gmail/Outlook/Mail…). Si rien ne s’ouvre, copiez l’adresse :*
+                    <span style="color: white; font-weight: 600;">contact@cloudnow.fr</span>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label for="service-type">Type de Service</label>
-                    <select id="service-type" class="form-control">
-                        <option value="web">Site Web (HTML/PHP/Node)</option>
-                        <option value="app">Application (Docker, Portainer...)</option>
-                        <option value="media">Média (Plex, Jellyfin)</option>
-                        <option value="game">Serveur de Jeu</option>
-                        <option value="other">Autre</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="message">Détails techniques (Port, IP locale...)</label>
-                    <textarea id="message" class="form-control"
-                        placeholder="Mon service tourne sur le port 8080 de mon Raspberry Pi..." required></textarea>
-                </div>
-
-                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">Envoyer la
-                    demande</button>
-            </form>
         </div>
     </section>
 
@@ -92,6 +75,7 @@
             &copy; 2024 CloudNow. Tous droits réservés.
         </div>
     </footer>
+
     <script src="script.js"></script>
 </body>
 
