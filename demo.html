@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Panel - CloudNow</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☁️</text></svg>">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            background: rgba(0, 0, 0, 0.5);
+            border-right: 1px solid var(--glass-border);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar h2 {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .sidebar-menu a {
+            display: block;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .sidebar-menu a.active,
+        .sidebar-menu a:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+        }
+
+        .main-content {
+            padding: 2rem;
+            overflow-y: auto;
+            max-height: 100vh;
+        }
+
+        .view-section {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .view-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stat-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-active {
+            background: rgba(16, 185, 129, 0.2);
+            color: #34D399;
+        }
+
+        .status-cloudflare {
+            background: rgba(244, 129, 32, 0.2);
+            color: #F48120;
+        }
+
+        .status-warn {
+            background: rgba(245, 158, 11, 0.2);
+            color: #F59E0B;
+        }
+
+        .mock-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .mock-table th {
+            text-align: left;
+            color: var(--text-muted);
+            padding: 1rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .mock-table td {
+            padding: 1rem;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        /* Console Style */
+        .console-window {
+            background: #0F1115;
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 1rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.85rem;
+            height: 300px;
+            overflow-y: auto;
+            color: #d1d5db;
+        }
+
+        .log-entry {
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 0.25rem;
+        }
+
+        .log-time {
+            color: #6b7280;
+            margin-right: 0.5rem;
+        }
+
+        .log-info {
+            color: #60A5FA;
+        }
+
+        .log-success {
+            color: #34D399;
+        }
+
+        .log-warn {
+            color: #F59E0B;
+        }
+
+        .log-error {
+            color: #EF4444;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal {
+            background: #171717;
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-gradient-blob blob-1" style="opacity: 0.2;"></div>
+    <div class="bg-gradient-blob blob-2" style="opacity: 0.2; bottom: 0; left: 0;"></div>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <a href="index.html" style="text-decoration: none; color: white;">
+                <h2><span style="font-size: 1.5rem;">☁️</span> CloudNow</h2>
+            </a>
+
+            <div class="sidebar-menu">
+                <a onclick="switchView('overview')" id="nav-overview" class="active">Vue d'ensemble</a>
+                <a onclick="switchView('tunnels')" id="nav-tunnels">Mes Tunnels</a>
+                <a onclick="switchView('logs')" id="nav-logs">Live Logs</a>
+                <a onclick="switchView('settings')" id="nav-settings">Paramètres</a>
+                <div style="flex-grow: 1;"></div>
+                <hr style="border: 0; border-top: 1px solid var(--glass-border); margin: 1rem 0;">
+                <a href="index.html" style="color: #F87171;">Déconnexion (Démo)</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- OVERVIEW VIEW -->
+            <div id="view-overview" class="view-section active">
+                <header
+                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <h1>Bonjour, Admin 👋</h1>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <span class="status-badge status-active">Système Opérationnel</span>
+                    </div>
+                </header>
+
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
+                    <div class="stat-card">
+                        <h4 style="color: var(--text-muted); margin-bottom: 0.5rem;">Trafic (24h)</h4>
+                        <div style="font-size: 2rem; font-weight: 700;">24.5 GB</div>
+                        <div style="color: #34D399; font-size: 0.9rem;">↑ 12% vs hier</div>
+                    </div>
+                    <div class="stat-card">
+                        <h4 style="color: var(--text-muted); margin-bottom: 0.5rem;">Menaces Bloquées</h4>
+                        <div style="font-size: 2rem; font-weight: 700;" id="threats-count">1,284</div>
+                        <div style="color: #F48120; font-size: 0.9rem;">🛡️ Cloudflare WAF</div>
+                    </div>
+                    <div class="stat-card">
+                        <h4 style="color: var(--text-muted); margin-bottom: 0.5rem;">Tunnels Actifs</h4>
+                        <div style="font-size: 2rem; font-weight: 700;" id="active-tunnels-count">3</div>
+                        <div style="color: #34D399; font-size: 0.9rem;">Tout est stable</div>
+                    </div>
+                </div>
+
+                <div class="stat-card" style="margin-bottom: 2rem;">
+                    <h3 style="margin-bottom: 1.5rem;">Bande Passante (Temps Réel)</h3>
+                    <canvas id="trafficChart" height="100"></canvas>
+                </div>
+            </div>
+
+            <!-- TUNNELS VIEW -->
+            <div id="view-tunnels" class="view-section">
+                <header
+                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <h1>Mes Tunnels</h1>
+                    <button onclick="openModal()" class="btn btn-primary"
+                        style="padding: 0.5rem 1rem; font-size: 0.9rem;">+ Nouveau Tunnel</button>
+                </header>
+
+                <div class="stat-card">
+                    <table class="mock-table" id="tunnels-table">
+                        <thead>
+                            <tr>
+                                <th>Service</th>
+                                <th>Domaine Public</th>
+                                <th>Cible Locale</th>
+                                <th>Protection</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <span style="font-size: 1.2rem;">PLEX</span> Plex Media
+                                </td>
+                                <td><a href="#" style="color: #60A5FA;">media.cloudnow.fr</a></td>
+                                <td><code>192.168.1.50:32400</code></td>
+                                <td><span class="status-badge status-cloudflare">Cloudflare Proxy</span></td>
+                                <td><span style="color: #34D399;">● En ligne</span></td>
+                            </tr>
+                            <tr>
+                                <td style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <span style="font-size: 1.2rem;">NC</span> Nextcloud
+                                </td>
+                                <td><a href="#" style="color: #60A5FA;">files.cloudnow.fr</a></td>
+                                <td><code>192.168.1.50:8080</code></td>
+                                <td><span class="status-badge status-cloudflare">Cloudflare Proxy</span></td>
+                                <td><span style="color: #34D399;">● En ligne</span></td>
+                            </tr>
+                            <tr>
+                                <td style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <span style="font-size: 1.2rem;">🎮</span> Minecraft
+                                </td>
+                                <td><a href="#" style="color: #60A5FA;">mc.cloudnow.fr</a></td>
+                                <td><code>192.168.1.50:25565</code></td>
+                                <td><span class="status-badge status-warn">TCP Raw</span></td>
+                                <td><span style="color: #34D399;">● En ligne</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- LOGS VIEW -->
+            <div id="view-logs" class="view-section">
+                <header
+                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <h1>Logs de Trafic</h1>
+                    <div style="display: flex; gap: 1rem;">
+                        <span class="status-badge status-active">Live</span>
+                        <span class="status-badge" style="background: rgba(255,255,255,0.1); cursor: pointer;"
+                            onclick="clearLogs()">Vider</span>
+                    </div>
+                </header>
+
+                <div class="console-window" id="live-console">
+                    <div class="log-entry"><span class="log-time">14:22:01</span> <span class="log-info">[INFO]</span>
+                        Tunnel 'Plex' handshake successful.</div>
+                    <div class="log-entry"><span class="log-time">14:22:05</span> <span class="log-success">[200
+                            OK]</span> GET /stream/chunk/102.ts from 85.12.xx.xx</div>
+                    <div class="log-entry"><span class="log-time">14:22:08</span> <span class="log-warn">[WARN]</span>
+                        Rate limit triggered for IP 112.45.xx.xx</div>
+                    <div class="log-entry"><span class="log-time">14:22:15</span> <span class="log-error">[BLOCK]</span>
+                        WAF Blocked SQL Injection attempt from 203.0.xx.xx</div>
+                </div>
+            </div>
+
+            <!-- SETTINGS VIEW -->
+            <div id="view-settings" class="view-section">
+                <header style="margin-bottom: 2rem;">
+                    <h1>Paramètres</h1>
+                </header>
+                <div class="stat-card">
+                    <p style="color: var(--text-muted); text-align: center; padding: 2rem;">
+                        Fonctionnalité désactivée en mode Démo.
+                    </p>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- NEW TUNNEL MODAL -->
+    <div class="modal-overlay" id="tunnel-modal">
+        <div class="modal">
+            <h2 style="margin-bottom: 1.5rem;">Créer un nouveau tunnel</h2>
+            <form onsubmit="createTunnel(event)">
+                <div class="form-group">
+                    <label>Nom du Service</label>
+                    <input type="text" id="new-name" class="form-control" placeholder="Ex: Mon Site" required>
+                </div>
+                <div class="form-group">
+                    <label>Sous-domaine souhaité</label>
+                    <div style="display: flex; gap: 0.5rem; align-items: center;">
+                        <input type="text" id="new-subdomain" class="form-control" placeholder="mon-site" required>
+                        <span style="color: #6b7280;">.cloudnow.fr</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Adresse Locale (IP:Port)</label>
+                    <input type="text" id="new-target" class="form-control" placeholder="192.168.1.15:3000" required>
+                </div>
+                <div class="form-group">
+                    <label>Type de Protection</label>
+                    <select class="form-control">
+                        <option>HTTPS Web (Cloudflare Proxy)</option>
+                        <option>TCP (Jeu / DB)</option>
+                    </select>
+                </div>
+                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                    <button type="button" onclick="closeModal()" class="btn btn-glass"
+                        style="flex: 1; text-align: center; justify-content: center;">Annuler</button>
+                    <button type="submit" class="btn btn-primary"
+                        style="flex: 1; text-align: center; justify-content: center;">Créer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // --- NAVIGATION ---
+        function switchView(viewId) {
+            // Update Menu
+            document.querySelectorAll('.sidebar-menu a').forEach(el => el.classList.remove('active'));
+            document.getElementById('nav-' + viewId).classList.add('active');
+
+            // Update Content
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+            document.getElementById('view-' + viewId).classList.add('active');
+        }
+
+        // --- CHART JS ---
+        const ctx = document.getElementById('trafficChart').getContext('2d');
+        const trafficChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['14:00', '14:05', '14:10', '14:15', '14:20', '14:25'],
+                datasets: [{
+                    label: 'Bandwidth (Mbps)',
+                    data: [12, 19, 15, 25, 22, 30],
+                    borderColor: '#60A5FA',
+                    backgroundColor: 'rgba(96, 165, 250, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9CA3AF' } },
+                    x: { grid: { display: false }, ticks: { color: '#9CA3AF' } }
+                }
+            }
+        });
+
+        // --- SIMULATION DATA UPDATE ---
+        setInterval(() => {
+            const newData = Math.floor(Math.random() * 40) + 10;
+            const time = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+            trafficChart.data.labels.push(time);
+            trafficChart.data.datasets[0].data.push(newData);
+
+            if (trafficChart.data.labels.length > 10) {
+                trafficChart.data.labels.shift();
+                trafficChart.data.datasets[0].data.shift();
+            }
+            trafficChart.update();
+
+            // Random Log
+            if (Math.random() > 0.6) addLog();
+
+            // Increment Threats
+            if (Math.random() > 0.9) {
+                let t = document.getElementById('threats-count');
+                t.innerText = (parseInt(t.innerText.replace(',', '')) + 1).toLocaleString();
+                addLog('BLOCK');
+            }
+
+        }, 2000);
+
+        // --- LOGS SYSTEM ---
+        const consoleEl = document.getElementById('live-console');
+        const tasks = ['GET /api/user', 'POST /auth/login', 'GET /dashboard', 'PING keep-alive'];
+        const ips = ['192.168.xx.xx', '85.12.xx.xx', '10.0.xx.xx'];
+
+        function addLog(type = 'INFO') {
+            const time = new Date().toLocaleTimeString('fr-FR');
+            let html = '';
+
+            if (type === 'BLOCK') {
+                html = `<div class="log-entry"><span class="log-time">${time}</span> <span class="log-error">[BLOCK]</span> WAF Blocked malicious packet from 45.2.xx.xx</div>`;
+            } else {
+                const task = tasks[Math.floor(Math.random() * tasks.length)];
+                html = `<div class="log-entry"><span class="log-time">${time}</span> <span class="log-success">[200 OK]</span> ${task} from ${ips[Math.floor(Math.random() * ips.length)]}</div>`;
+            }
+
+            const div = document.createElement('div');
+            div.innerHTML = html;
+            consoleEl.insertBefore(div.firstChild, consoleEl.firstChild);
+
+            if (consoleEl.children.length > 50) consoleEl.lastChild.remove();
+        }
+
+        function clearLogs() {
+            consoleEl.innerHTML = '';
+        }
+
+        // --- MODAL SYSTEM ---
+        function openModal() {
+            document.getElementById('tunnel-modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('tunnel-modal').style.display = 'none';
+        }
+
+        function createTunnel(e) {
+            e.preventDefault();
+            const name = document.getElementById('new-name').value;
+            const sub = document.getElementById('new-subdomain').value;
+            const target = document.getElementById('new-target').value;
+
+            const tbody = document.querySelector('#tunnels-table tbody');
+            const row = `
+                <tr>
+                    <td style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span style="font-size: 1.2rem;">✨</span> ${name}
+                    </td>
+                    <td><a href="#" style="color: #60A5FA;">${sub}.cloudnow.fr</a></td>
+                    <td><code>${target}</code></td>
+                    <td><span class="status-badge status-cloudflare">Cloudflare Proxy</span></td>
+                    <td><span style="color: #F59E0B;">● Démarrage...</span></td>
+                </tr>
+            `;
+            tbody.innerHTML += row;
+
+            // Update counter
+            const count = document.getElementById('active-tunnels-count');
+            count.innerText = parseInt(count.innerText) + 1;
+
+            closeModal();
+            alert("Tunnel créé avec succès ! (Simulation)");
+
+            // Simulate startup
+            setTimeout(() => {
+                tbody.lastElementChild.querySelector('span[style*="F59E0B"]').innerHTML = '● En ligne';
+                tbody.lastElementChild.querySelector('span[style*="F59E0B"]').style.color = '#34D399';
+            }, 3000);
+        }
+    </script>
+</body>
+
+</html>

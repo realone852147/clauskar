@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloudNow - Votre infrastructure unifiée</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Favicon (placeholder) -->
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☁️</text></svg>">
+</head>
+
+<body>
+
+    <!-- Background Elements -->
+    <div class="grid-overlay"></div>
+    <div class="bg-gradient-blob blob-1"></div>
+    <div class="bg-gradient-blob blob-2"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-glass">
+            <a href="#" class="logo">
+                <span style="font-size: 1.2rem;">☁️</span> CloudNow
+            </a>
+            <div class="nav-links">
+                <a href="features.html">Fonctionnalités</a>
+
+                <a href="contact.html">Contact</a>
+            </div>
+            <a href="pricing.html" class="nav-cta">Tarifs</a>
+
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-pill">
+            <span class="pulse-dot"></span> Compatible avec tous vos services
+        </div>
+
+        <h1>
+            Votre Cloud,<br>
+            <span class="text-gradient">accessible simplement.</span>
+        </h1>
+
+        <p>
+            CloudNow configure et héberge vos services derrière un domaine professionnel.
+            Fini les IPs, fini les ports, place à la simplicité.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="contact.html" class="btn btn-primary">
+                Demander un accès
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+            </a>
+            <a href="demo.html" class="btn btn-glass">
+                Voir la démo
+            </a>
+        </div>
+
+        <!-- 3D Visualization -->
+        <div class="visual-container">
+            <div class="glass-card-3d">
+                <div class="card-header">
+                    <div class="traffic-lights">
+                        <div class="light red"></div>
+                        <div class="light yellow"></div>
+                        <div class="light green"></div>
+                    </div>
+                    <div class="url-bar">cloudnow.fr/dashboard</div>
+                    <div style="width: 40px;"></div> <!-- Spacer -->
+                </div>
+
+                <div class="services-grid">
+                    <!-- Service 1 -->
+                    <div class="service-item">
+                        <div class="icon-box blue-glow">
+                            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 00-2 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
+                            </svg>
+                        </div>
+                        <h4>Nextcloud</h4>
+                        <span>files-xenox.cloudnow.fr</span>
+                    </div>
+
+                    <!-- Service 2 -->
+                    <div class="service-item">
+                        <div class="icon-box purple-glow">
+                            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <h4>Plex</h4>
+                        <span>medias-xenox.cloudnow.fr</span>
+                    </div>
+
+                    <!-- Service 3 -->
+                    <div class="service-item">
+                        <div class="icon-box pink-glow">
+                            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                            </svg>
+                        </div>
+                        <h4>Vaultwarden</h4>
+                        <span>passwords-xenox.cloudnow.fr</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Banner -->
+    <div class="flex flex-wrap justify-center gap-8 md:gap-16 py-8 border-y border-white/5 bg-white/[0.02]"
+        style="display: flex; justify-content: center; gap: 4rem; padding: 3rem 0; background: rgba(255,255,255,0.02); border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border); margin-top: 4rem;">
+        <div class="text-center">
+            <div style="font-size: 2.5rem; font-weight: 800; color: white;">1k+</div>
+            <div style="font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">
+                Tunnels Actifs</div>
+        </div>
+        <div class="text-center">
+            <div style="font-size: 2.5rem; font-weight: 800; color: white;">99.9%</div>
+            <div style="font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">
+                Disponibilité</div>
+        </div>
+        <div class="text-center">
+            <div style="font-size: 2.5rem; font-weight: 800; color: white;">1TB</div>
+            <div style="font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">
+                Trafic Mensuel</div>
+        </div>
+        <div class="text-center">
+            <div style="font-size: 2.5rem; font-weight: 800; color: white;">3ms</div>
+            <div style="font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">
+                Latence Ajoutée</div>
+        </div>
+    </div>
+
+    <!-- Supported Tech Marquee (Simulated) -->
+    <div style="text-align: center; padding: 4rem 20px; opacity: 0.6;">
+        <p style="margin-bottom: 2rem; font-size: 0.9rem; letter-spacing: 1px;">PROPULSÉ PAR DES TECHNOLOGIES ROBUSTES
+        </p>
+        <div
+            style="display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; font-size: 1.5rem; font-weight: 700; color: white;">
+            <span>CLOUDFLARE</span>
+            <span>NGINX</span>
+            <span>WIREGUARD</span>
+            <span>DOCKER</span>
+            <span>LINUX</span>
+            <span>RUST</span>
+        </div>
+    </div>
+
+    <!-- Value Proposition -->
+    <section class="features" id="fonctionnalites">
+        <div style="text-align: center; margin-bottom: 4rem;">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Service Managé Premium</h2>
+            <p style="color: var(--text-muted);">Nous nous occupons de la configuration technique. Vous profitez du
+                service.</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-glow"></div>
+                <div class="icon-box blue-glow" style="margin-bottom: 1.5rem;">
+                    <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <h3>Économique</h3>
+                <p>Oubliez l'achat de noms de domaines coûteux. Profitez de sous-domaines gratuits du type
+                    <code>mon-app.cloudnow.fr</code>.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-glow" style="background: #F48120;"></div> <!-- Cloudflare Orange -->
+                <div class="icon-box"
+                    style="margin-bottom: 1.5rem; background: rgba(244, 129, 32, 0.1); color: #F48120;">
+                    <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                </div>
+                <h3>Protection Cloudflare</h3>
+                <p>Tous les flux transitent par le pare-feu Cloudflare. Vos IPs d'origine sont masquées et protégées
+                    contre les attaques DDoS.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-glow" style="background: var(--accent-pink);"></div>
+                <div class="icon-box pink-glow" style="margin-bottom: 1.5rem;">
+                    <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                </div>
+                <h3>Confidentialité Totale</h3>
+                <p>Nous faisons du "Pass-Through". Votre trafic est redirigé sans être analysé, enregistré ou modifié.
+                    Vos données restent vôtres.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-glow" style="background: var(--accent-purple);"></div>
+                <div class="icon-box purple-glow" style="margin-bottom: 1.5rem;">
+                    <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                </div>
+                <h3>Sur Mesure</h3>
+                <p>Chaque demande est traitée par un administrateur. Nous configurons les proxys, les tunnels et la
+                    sécurité selon vos besoins.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-glow" style="background: var(--accent-pink);"></div>
+                <div class="icon-box pink-glow" style="margin-bottom: 1.5rem;">
+                    <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                </div>
+                <h3>Prêt à l'emploi</h3>
+                <p>Une fois configuré, votre service est accessible partout, tout le temps. Certificats SSL inclus et
+                    renouvelés automatiquement.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">
+            <span style="font-size: 1.2rem;">☁️</span>
+            <span style="font-weight: 700; color: white;">CloudNow</span>
+        </div>
+        <p>L'hébergement personnel réinventé.</p>
+
+        <div class="footer-links">
+            <a href="features.html">Fonctionnalités</a>
+            <a href="contact.html">Contact</a>
+            <a href="#">Status</a>
+        </div>
+
+        <div style="margin-top: 2rem; font-size: 0.8rem; opacity: 0.4;">
+            &copy; 2026 CloudNow. Tous droits réservés.
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
