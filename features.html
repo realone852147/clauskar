@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fonctionnalités - CloudNow</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☁️</text></svg>">
+</head>
+
+<body>
+    <!-- Background Elements -->
+    <div class="grid-overlay"></div>
+    <div class="bg-gradient-blob blob-1"></div>
+    <div class="bg-gradient-blob blob-2"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-glass">
+            <a href="index.html" class="logo">
+                <span style="font-size: 1.2rem;">☁️</span> CloudNow
+            </a>
+            <div class="nav-links">
+                <a href="features.html" class="active">Fonctionnalités</a>
+                <a href="pricing.html">Tarifs</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <h1>Tout ce que vous pouvez <span class="text-gradient">héberger.</span></h1>
+        <p>Nous supportons virtuellement tous les services web. Si ça tourne sur un port, nous pouvons l'exposer.</p>
+    </header>
+
+    <section class="features" style="padding-top: 0;">
+        <div class="catalog-grid">
+            <div class="catalog-item">
+                <span class="catalog-icon">📁</span>
+                <h4>Nextcloud</h4>
+                <p>Stockage de fichiers</p>
+            </div>
+            <div class="catalog-item">
+                <span class="catalog-icon">🎬</span>
+                <h4>Plex / Jellyfin</h4>
+                <p>Streaming Média</p>
+            </div>
+            <div class="catalog-item">
+                <span class="catalog-icon">🔐</span>
+                <h4>Vaultwarden</h4>
+                <p>Mots de passe</p>
+            </div>
+            <div class="catalog-item">
+                <span class="catalog-icon">🏠</span>
+                <h4>Home Assistant</h4>
+                <p>Domotique</p>
+            </div>
+            <div class="catalog-item">
+                <span class="catalog-icon">👾</span>
+                <h4>Minecraft</h4>
+                <p>Serveurs de jeu</p>
+            </div>
+            <div class="catalog-item">
+                <span class="catalog-icon">📊</span>
+                <h4>Grafana</h4>
+                <p>Monitoring</p>
+            </div>
+            <div class="catalog-item">
+                <span class="catalog-icon">🐳</span>
+                <h4>Portainer</h4>
+                <p>Gestion Docker</p>
+            </div>
+            <div class="catalog-item">
+                <span class="catalog-icon">📝</span>
+                <h4>Ghost / WP</h4>
+                <p>Blogs & Sites</p>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 6rem;">
+            <h2 style="font-size: 2rem; margin-bottom: 2rem;">Une architecture invisible</h2>
+            <p style="color: var(--text-muted); max-width: 700px; margin: 0 auto 4rem;">
+                CloudNow agit comme un simple tuyau sécurisé. Nous ne regardons pas ce qui passe dedans.
+            </p>
+
+            <div class="features-grid" style="grid-template-columns: 1fr; max-width: 800px; margin: 0 auto;">
+                <div class="feature-card" style="display: flex; align-items: center; gap: 2rem; text-align: left;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/94/Cloudflare_Logo.png" alt="Cloudflare"
+                        style="height: 50px; opacity: 0.8;">
+                    <div>
+                        <h3>1. Pare-feu Cloudflare</h3>
+                        <p>Le trafic entrant est nettoyé par Cloudflare. Les attaques DDoS sont bloquées avant même
+                            d'atteindre notre infrastructure.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card" style="display: flex; align-items: center; gap: 2rem; text-align: left;">
+                    <div style="font-size: 3rem;">⚡</div>
+                    <div>
+                        <h3>2. Tunnel CloudFlared</h3>
+                        <p>Le trafic est routé via un tunnel chiffré vers votre machine. <strong>Zero Trust</strong> :
+                            nous ne déchiffrons pas, nous ne visualisons pas.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card" style="display: flex; align-items: center; gap: 2rem; text-align: left;">
+                    <div style="font-size: 3rem;">🏠</div>
+                    <div>
+                        <h3>3. Votre Serveur</h3>
+                        <p>Le flux arrive sur votre port local (ex: localhost:3000). Votre service répond, et la réponse
+                            repart par le même chemin.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 6rem;">
+            <h2 style="font-size: 2rem; margin-bottom: 2rem;">Comment ça marche ?</h2>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="icon-box blue-glow">1</div>
+                    <h3>Vous hébergez</h3>
+                    <p>Faites tourner votre service chez vous (Raspberry Pi, NAS, Vieux PC) ou sur un VPS.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon-box purple-glow">2</div>
+                    <h3>Vous demandez</h3>
+                    <p>Contactez-nous pour réserver votre sous-domaine <br>(ex:
+                        <code>mon-plex.client.cloudnow.fr</code>) .
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon-box pink-glow">3</div>
+                    <h3>Nous connectons</h3>
+                    <p>Nous configurons le tunnel sécurisé. Votre service est en ligne, protégé par l'infrastructure de
+                        Cloudflare.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">
+            <span style="font-size: 1.2rem;">☁️</span>
+            <span style="font-weight: 700; color: white;">CloudNow</span>
+        </div>
+        <p>L'hébergement personnel réinventé.</p>
+
+        <div class="footer-links">
+            <a href="features.html">Fonctionnalités</a>
+            <a href="pricing.html">Tarifs</a>
+            <a href="contact.html">Contact</a>
+            <a href="#">Status</a>
+        </div>
+
+        <div style="margin-top: 2rem; font-size: 0.8rem; opacity: 0.4;">
+            &copy; 2026 CloudNow. Tous droits réservés.
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+
+
+</html>
